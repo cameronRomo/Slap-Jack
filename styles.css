@@ -18,7 +18,7 @@ body {
   position: absolute;
   border-radius: 8px;
   height: 50%;
-  width: 15%;
+  width: 20%;
 }
 
 .game__player-1{
@@ -40,11 +40,11 @@ body {
 .wins__player-1 {
 position: absolute;
 bottom: 22%;
-left: 10%;
+left: 12%;
 }
 
 .wins__player-2 {
 position: absolute;
 bottom: 22%;
-right: 10%;
+right: 12%;
 }
