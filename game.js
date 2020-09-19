@@ -87,9 +87,9 @@ class Game {
 
   playerTurn() {
     if (this.gameTurns % 2 === 0) {
-      this.player2.isTurn = true;
-    } else {
       this.player1.isTurn = true;
+    } else {
+      this.player2.isTurn = true;
     }
   }
 
