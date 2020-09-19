@@ -90,16 +90,21 @@ class Game {
   playerTurn() {
     if (this.gameTurns % 2 === 0) {
       this.player1.isTurn = true;
+      this.player2.isTurn = false;
     } else {
       this.player2.isTurn = true;
+      this.player1.isTurn = false;
     }
   }
 
   playPlayerCard(currentPlayer) {
     if (currentPlayer.hand.length > 0 && currentPlayer.isTurn === true) {
-      currentPlayer.playCard();
+      var cardInPlay = currentPlayer.hand[0]
+      this.pile.splice(0, 0, cardInPlay);
+      currentPlayer.hand.splice(0, 1);
       this.gameTurns += 1;
     }
+    return
   }
 
   attemptSlap(currentPlayer) {
