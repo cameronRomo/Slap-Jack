@@ -28,7 +28,7 @@ body {
 
 .game__player-2 {
   right: 4%;
-  box-shadow: 0 0 30px green;
+  box-shadow: 0 0 30px cyan;
 }
 
 .game__card-stack {
