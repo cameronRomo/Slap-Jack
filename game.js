@@ -62,25 +62,26 @@ class Game {
       './assets/green-jack.png',
       './assets/red-jack.png',
     ]
+    this.intervalID;
   }
 
   shuffleCards(array) {
-    setInterval( function() {
-      var randomCard = Math.floor(Math.random() * array.length);
-      if (this.cards.length > 0) {
-      dealCards(randomCard);
-    } else {
-      return;
-    }
-    }, 100);
+    this.intervalID = setInterval(this.addCards.bind(this), 100);
+  }
+
+  addCards() {
+    var randomCard = this.cards[Math.floor(Math.random() * this.cards.length)];
+    this.dealCards(randomCard);
   }
 
   dealCards(card) {
-      if (player1.hand.length <= 26) {
-        player1.hand.unshift(card);
-      } else {
-        player2.hand.unshift(card);
-      }
+    if (this.player1.hand.length < 25) {
+      this.player1.hand.unshift(card);
+    } else {
+      this.player2.hand.unshift(card);
+    }
+    if (this.player2.hand.length === 25) {
+      clearInterval(this.intervalID);
     }
   }
 
@@ -92,9 +93,10 @@ class Game {
     }
   }
 
-  playCard(currentPlayer) {
-    if (currentPlayer.hand.length > 0)
-    this.pile.unshift(currentPlayer.hand[0]);
+  playPlayerCard(currentPlayer) {
+    if (currentPlayer.hand.length > 0) {
+      currentPlayer.playCard(game);
+    }
   }
 
   attemptSlap(currentPlayer) {
