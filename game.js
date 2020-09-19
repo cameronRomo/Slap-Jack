@@ -4,6 +4,9 @@ class Game {
     this.player2 = new Player('2');
     this.gameTurns = 0;
     this.cards = [
+      './assets/blue-01.png',
+      './assets/blue-02.png',
+      './assets/blue-03.png',
       './assets/blue-04.png',
       './assets/blue-05.png',
       './assets/blue-06.png',
@@ -53,7 +56,6 @@ class Game {
       './assets/red-jack.png',
       './assets/red-king.png',
       './assets/red-queen.png',
-      './assets/wild.png',
     ];
     this.pile = [];
     this.winningJacks = [
@@ -75,12 +77,12 @@ class Game {
   }
 
   dealCards(card) {
-    if (this.player1.hand.length < 25) {
+    if (this.player1.hand.length < 26) {
       this.player1.hand.unshift(card);
     } else {
       this.player2.hand.unshift(card);
     }
-    if (this.player2.hand.length === 25) {
+    if (this.player2.hand.length === 26) {
       clearInterval(this.intervalID);
     }
   }
@@ -102,17 +104,18 @@ class Game {
 
   attemptSlap(currentPlayer) {
     for (var i = 0; i < this.winningJacks.length; i++) {
-      if (this.cards[0] === this.winningJacks[i]) {
+      if (this.pile[0] === this.winningJacks[i]) {
         for (var j = 0; j < this.pile.length; j++) {
           currentPlayer.hand.push(this.pile[j])
         }
       }
     }
-    if (this.cards[0] === this.cards[1] || this.cards[0] === this.cards[2]) {
+    if (this.pile[0] === this.pile[1] || this.pile[0] === this.pile[2]) {
       for (var k = 0; k < this.pile.length; k++) {
         currentPlayer.hand.push(this.pile[k])
       }
     }
+    // return this.pile;
   }
 
   checkForWin(currentPlayer) {
