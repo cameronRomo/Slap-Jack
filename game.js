@@ -94,8 +94,9 @@ class Game {
   }
 
   playPlayerCard(currentPlayer) {
-    if (currentPlayer.hand.length > 0) {
-      currentPlayer.playCard(game);
+    if (currentPlayer.hand.length > 0 && currentPlayer.isTurn === true) {
+      currentPlayer.playCard();
+      this.gameTurns += 1;
     }
   }
 
