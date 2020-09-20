@@ -37,6 +37,16 @@ body {
   left: 42%;
 }
 
+.new-card {
+  position: absolute;
+  border-radius: 8px;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  /* left: 42%; */
+}
+
 .wins__player-1 {
 position: absolute;
 bottom: 22%;
@@ -47,4 +57,15 @@ left: 12%;
 position: absolute;
 bottom: 22%;
 right: 12%;
+}
+
+.winning-message {
+color: white;
+display: flex;
+justify-content: center;
+margin-bottom: 10%;
+opacity: 0.5;
+}
+.--win {
+  margin-top: 0px;
 }
