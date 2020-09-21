@@ -110,35 +110,27 @@ class Game {
   attemptSlap(currentPlayer) {
     for (var i = 0; i < this.winningJacks.length; i++) {
       if (this.pile[0].source === this.winningJacks[i].source) {
+        console.log("It did it");
         this.pile.forEach(function(card) {
           currentPlayer.hand.push(card);
-          // slapType += "SlapJack"
         })
       }
     }
-    return this.pile = [];
-    if (this.pile[0].number === this.pile[1].number) {
+    if (this.pile[0].number === this.pile[1].number || this.pile[0].number === this.pile[2].number) {
       this.pile.forEach(function(card) {
         currentPlayer.hand.push(card);
-        // slapType += "Double"
       })
     }
-    return this.pile = [];
-    if (this.pile[0].number === this.pile[2].number) {
-      this.pile.forEach(function(card) {
-        currentPlayer.hand.push(card);
-        // slapType += "Sandwich"
-    })
-  }
+  //   if (this.pile[0].number === this.pile[2].number) {
+  //     this.pile.forEach(function(card) {
+  //       currentPlayer.hand.push(card);
+  //   })
+  // }
+  return this.pile = [];
 }
 
-  checkForWin(currentPlayer) {
-    if (currentPlayer.isTurn === false) {
-      var oppositePlayer = currentPlayer;
-    }
-    if (oppositePlayer.timesWNoCard === 2) {
-      currentPlayer.wins += 1;
-    }
+  addWin(currentPlayer) {
+    currentPlayer.wins += 1;
   }
 
   resetGame() {
