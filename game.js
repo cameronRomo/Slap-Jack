@@ -92,7 +92,6 @@ class Game {
   }
 
   checkHand() {
-    //debugger
     if (this.player1.hand.length === 0 && this.gameTurns > 1) {
       console.log("Player 2 turn");
       this.player1.isTurn = false;
@@ -116,7 +115,6 @@ class Game {
   }
 
   playPlayerCard(currentPlayer) {
-    //debugger
     if (currentPlayer.hand.length > 0 && currentPlayer.isTurn === true) {
       var cardInPlay = currentPlayer.hand[0]
       currentPlayer.hand.splice(0, 1);
