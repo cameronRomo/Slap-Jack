@@ -12,12 +12,11 @@ function startGame() {
   currentGame.playerTurn();
   displayMessage();
 }
-
-function displayMessage() {
+//(currentGame.player2.isTurn === true)
+function displayMessage() { //refactor
   if (currentGame.player1.isTurn === true) {
      topMessage.innerText = "It's player 1's turn. Press \'Q' to play card.";
-  }
-  if (currentGame.player2.isTurn === true) {
+  } else {
     topMessage.innerText = "It's player 2's turn. Press \'P' to play card.";
   }
 }
@@ -27,7 +26,6 @@ function updateGame() {
   if (currentGame.pile[0] !== undefined) {
     pile.innerHTML = `<img class="new-card card" src="${currentGame.pile[0].source}" alt="pile">`
   }
-  addWin();
 }
 
 function clearPile() {
@@ -35,52 +33,61 @@ function clearPile() {
 }
 
 function play(event) {
+  //var currentPlayer ... who is current player?
   console.log(event.key);
   if (event.key === "q") {
-    console.log(event.target);
+    // console.log(event.target);
     currentGame.playPlayerCard(currentGame.player1);
     currentGame.playerTurn();
     displayMessage()
   } else if (event.key === "f") {
       slap(event);
-      currentGame.addWin(currentGame.player1)
-  }
-  if (event.key === "p") {
+      updateWin()
+  } else if (event.key === "p") {
     currentGame.playPlayerCard(currentGame.player2);
     currentGame.playerTurn();
     displayMessage();
   } else if (event.key === "j") {
     slap(event);
-    currentGame.addWin(currentGame.player2)
+    updateWin()
   }
-  console.log(currentGame.pile[0]);
 }
 
 function slap(event) {
   if (event.key === "f") {
     currentGame.attemptSlap(currentGame.player1);
     clearPile();
-    topMessage.innerText = "SLAPJACK! Player 1 takes the pile!\n Player 2, press \'P' to play next card.";
+    trackNoCards(currentGame.player2);
+    topMessage.innerText = `${currentGame.player1.playerMessage} Player 1 takes the pile!\n Player 2, press \'P' to play next card.`;
     currentGame.playerTurn();
-  }
-  if (event.key === "j") {
+    return
+  } else if (event.key === "j") {
       currentGame.attemptSlap(currentGame.player2);
       clearPile();
-      topMessage.innerText = "SLAPJACK! Player 2 takes the pile!\n Player 1, press \'Q' to play next card.";
+      trackNoCards(currentGame.player1);
+      console.log(currentGame.player2.playerMessage);
+      topMessage.innerText = `${currentGame.player2.playerMessage} Player 2 takes the pile!\n Player 1, press \'Q' to play next card.`;
       currentGame.playerTurn();
+      return
     }
 }
 
-function addWin() {
+function updateWin() {
   var player1Score = document.querySelector(".game__player1-wins")
   var player2Score = document.querySelector(".game__player2-wins")
   if (currentGame.player1.hand.length === 0 && currentGame.player1.timesWNoCard === 2) {
+  console.log("Should pluss 1");
   currentGame.addWin(currentGame.player2);
-  player1Score.innerText = `${currentGame.player2.wins} Wins`
+  player2Score.innerText = `${currentGame.player2.wins} Wins`
 } else if (currentGame.player2.hand.length === 0 && currentGame.player2.timesWNoCard === 2) {
   currentGame.addWin(currentGame.player1);
-  player2Score.innerText = `${currentGame.player1.wins} Wins`
+  player1Score.innerText = `${currentGame.player1.wins} Wins`
 } else {
   return
 }
+}
+function trackNoCards(player) {
+  if (player.hand.length === 0) {
+    player.timesWNoCard += 1;
+  }
 }
