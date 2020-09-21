@@ -5,8 +5,28 @@ class Player {
     this.hand = [];
     this.isTurn = false;
     this.timesWNoCard = 0;
+    this.slappedJack = false;
+    this.slappedDouble = false;
+    this.slappedSandwich = false;
+    this.playerMessage;
+  }
+  playerSlapedJack() {
+    if (this.slappedJack === true) {
+      this.playerMessage = "SLAPJACK!"
+    }
   }
 
+  playerSlapedDouble() {
+    if (this.slappedDouble === true) {
+      this.playerMessage = "DOUBLE!"
+    }
+  }
+
+  playerSlapedSandwich() {
+    if (this.slappedSandwich === true) {
+      this.playerMessage = "SANDWICH!"
+    }
+  }
   saveWinsToStorage() {
 
   }

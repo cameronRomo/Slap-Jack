@@ -14,9 +14,9 @@ class Game {
       {suit: "blue", number: 8, source: './assets/blue-08.png'},
       {suit: "blue", number: 9, source: './assets/blue-09.png'},
       {suit: "blue", number: 10, source: './assets/blue-10.png'},
-      {suit: "blue", number: 10, source: './assets/blue-jack.png'},
-      {suit: "blue", number: 10, source: './assets/blue-king.png'},
-      {suit: "blue", number: 10, source: './assets/blue-queen.png'},
+      {suit: "blue", number: 11, source: './assets/blue-jack.png'},
+      {suit: "blue", number: 13, source: './assets/blue-king.png'},
+      {suit: "blue", number: 12, source: './assets/blue-queen.png'},
       {suit: "gold", number: 1, source: './assets/gold-01.png'},
       {suit: "gold", number: 2, source: './assets/gold-02.png'},
       {suit: "gold", number: 3, source: './assets/gold-03.png'},
@@ -27,9 +27,9 @@ class Game {
       {suit: "gold", number: 8, source: './assets/gold-08.png'},
       {suit: "gold", number: 9, source: './assets/gold-09.png'},
       {suit: "gold", number: 10, source: './assets/gold-10.png'},
-      {suit: "gold", number: 10, source: './assets/gold-jack.png'},
-      {suit: "gold", number: 10, source: './assets/gold-king.png'},
-      {suit: "gold", number: 10, source: './assets/gold-queen.png'},
+      {suit: "gold", number: 11, source: './assets/gold-jack.png'},
+      {suit: "gold", number: 13, source: './assets/gold-king.png'},
+      {suit: "gold", number: 12, source: './assets/gold-queen.png'},
       {suit: "green", number: 1, source: './assets/green-01.png'},
       {suit: "green", number: 2, source: './assets/green-02.png'},
       {suit: "green", number: 3, source: './assets/green-03.png'},
@@ -40,9 +40,9 @@ class Game {
       {suit: "green", number: 8, source: './assets/green-08.png'},
       {suit: "green", number: 9, source: './assets/green-09.png'},
       {suit: "green", number: 10, source: './assets/green-10.png'},
-      {suit: "green", number: 10, source: './assets/green-jack.png'},
-      {suit: "green", number: 10, source: './assets/green-king.png'},
-      {suit: "green", number: 10, source: './assets/green-queen.png'},
+      {suit: "green", number: 11, source: './assets/green-jack.png'},
+      {suit: "green", number: 13, source: './assets/green-king.png'},
+      {suit: "green", number: 12, source: './assets/green-queen.png'},
       {suit: "red", number: 1, source: './assets/red-01.png'},
       {suit: "red", number: 2, source: './assets/red-02.png'},
       {suit: "red", number: 3, source: './assets/red-03.png'},
@@ -53,16 +53,16 @@ class Game {
       {suit: "red", number: 8, source: './assets/red-08.png'},
       {suit: "red", number: 9, source: './assets/red-09.png'},
       {suit: "red", number: 10, source: './assets/red-10.png'},
-      {suit: "red", number: 10, source: './assets/red-jack.png'},
-      {suit: "red", number: 10, source: './assets/red-king.png'},
-      {suit: "red", number: 10, source: './assets/red-queen.png'},
+      {suit: "red", number: 11, source: './assets/red-jack.png'},
+      {suit: "red", number: 13, source: './assets/red-king.png'},
+      {suit: "red", number: 12, source: './assets/red-queen.png'},
     ];
     this.pile = [];
     this.winningJacks = [
-      {suit: "blue", number: 10, source: './assets/blue-jack.png'},
-      {suit: "gold", number: 10, source: './assets/gold-jack.png'},
-      {suit: "green", number: 10, source: './assets/green-jack.png'},
-      {suit: "red", number: 10, source: './assets/red-jack.png'},
+      {suit: "blue", number: 11, source: './assets/blue-jack.png'},
+      {suit: "gold", number: 11, source: './assets/gold-jack.png'},
+      {suit: "green", number: 11, source: './assets/green-jack.png'},
+      {suit: "red", number: 11, source: './assets/red-jack.png'},
     ]
     this.intervalID;
   }
@@ -88,6 +88,23 @@ class Game {
   }
 
   playerTurn() {
+    this.checkHand();
+  }
+
+  checkHand() {
+    if (this.player1.hand.length === 0 && this.gameTurns > 1) {
+      console.log("Player 2 turn");
+      this.player1.isTurn = false;
+      this.player2.isTurn = true;
+    } else if (this.player2.hand.length === 0 && this.gameTurns > 1) {
+      this.player2.isTurn = false;
+      this.player1.isTurn = true;
+    } else {
+      this.checkGameTurns()
+    }
+  }
+
+  checkGameTurns() {
     if (this.gameTurns % 2 === 0) {
       this.player1.isTurn = true;
       this.player2.isTurn = false;
@@ -108,19 +125,17 @@ class Game {
   }
 
   attemptSlap(currentPlayer) {
-    console.log(this.pile[0]);
-    console.log(this.pile[1]);
-    console.log(this.pile[2]);
     this.slapJack(currentPlayer)
+    this.double(currentPlayer)
     this.sandwich(currentPlayer)
-    this.doubles(currentPlayer)
-  return this.pile = [];
+    return this.pile = [];
 }
 
   slapJack(currentPlayer) {
     for (var i = 0; i < this.winningJacks.length; i++) {
       if (this.pile[0].source === this.winningJacks[i].source) {
-        console.log("SlapJack");
+        currentPlayer.slappedJack = true;
+        currentPlayer.playerSlapedJack();
         this.pile.forEach(function(card) {
           currentPlayer.hand.push(card);
         })
@@ -128,11 +143,12 @@ class Game {
     }
   }
 
- doubles(currentPlayer) {
-  if (this.pile.length < 3 || this.pile.length < 2) {
-    console.log("NO!");
+ double(currentPlayer) {
+  if (this.pile.length < 2) {
+    return;
   } else if (this.pile[0].number === this.pile[1].number) {
-    console.log("Double");
+    currentPlayer.slappedDouble = true;
+    currentPlayer.playerSlapedDouble();
     this.pile.forEach(function(card) {
       currentPlayer.hand.push(card);
     })
@@ -140,10 +156,11 @@ class Game {
 }
 
  sandwich(currentPlayer) {
-  if (this.pile.length < 3 || this.pile.length < 2) {
-    console.log("NO!");
+  if (this.pile.length < 3) {
+    return;
   } else if (this.pile[0].number === this.pile[2].number) {
-    console.log("Sandwich");
+    currentPlayer.slappedSandwich = true;
+    currentPlayer.playerSlapedSandwich();
     this.pile.forEach(function(card) {
       currentPlayer.hand.push(card);
     })
