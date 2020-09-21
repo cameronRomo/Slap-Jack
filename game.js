@@ -107,10 +107,6 @@ class Game {
     return
   }
 
-  slapJack() {
-
-  }
-
   attemptSlap(currentPlayer) {
     for (var i = 0; i < this.winningJacks.length; i++) {
       if (this.pile[0].source === this.winningJacks[i].source) {
