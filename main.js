@@ -1,6 +1,6 @@
 var pile = document.querySelector(".game__card-stack");
 var currentGame;
-var topMessageParent = document.querySelector(".body")
+var topMessage = document.querySelector(".message")
 
 window.onload = startGame();
 window.addEventListener("keydown", updateGame);
@@ -10,6 +10,16 @@ function startGame() {
   //invoke an updateWins();
   currentGame.shuffleCards(currentGame.cards);
   currentGame.playerTurn();
+  displayMessage();
+}
+
+function displayMessage() {
+  if (currentGame.player1.isTurn === true) {
+     topMessage.innerText = "It's player 1's turn. Press \'Q' to play card.";
+  }
+  if (currentGame.player2.isTurn === true) {
+    topMessage.innerText = "It's player 2's turn. Press \'P' to play card.";
+  }
 }
 
 function updateGame() {
@@ -32,11 +42,7 @@ function updateGame() {
 }
 
 function clearPile() {
-  // var topMessageParent = document.querySelector(".body")
   pile.innerHTML = `<div class="game__card-stack card"></div>`;
-//   topMessageParent.insertAdjacentHTML('afterbegin',
-// `<h2 class="winning-message">SLAPJACK! `
-// )
 }
 
 function play() {
@@ -44,42 +50,35 @@ function play() {
     console.log(event.target);
     currentGame.playPlayerCard(currentGame.player1);
     currentGame.playerTurn();
+    displayMessage()
   } else if (event.key === "f") {
-      // currentGame.attemptSlap(currentGame.player1);
       slap();
-      clearPile();
+      currentGame.playerTurn();
   }
   if (event.key === "p") {
     currentGame.playPlayerCard(currentGame.player2);
     currentGame.playerTurn();
+    displayMessage();
   } else if (event.key === "j") {
-    // currentGame.attemptSlap(currentGame.player2);
     slap();
-    clearPile();
+    currentGame.playerTurn();
   }
   console.log(currentGame.pile[0]);
 }
 
 function slap() {
-  var winningMesg;
   if (event.key === "f") {
     currentGame.attemptSlap(currentGame.player1);
     clearPile();
-    winningMesg = topMessageParent.insertAdjacentHTML('afterbegin',
-  `<h1 class="winning-message">SLAPJACK! Player 1 takes the pile!</h1>`)
+    topMessage.innerText = "SLAPJACK! Player 1 takes the pile!\n Player 2, press \'P' to play next card.";
+
   }
 if (event.key === "j") {
     currentGame.attemptSlap(currentGame.player2);
     clearPile();
-    topMessageParent.classList.add("--win")
-    winningMesg = topMessageParent.insertAdjacentHTML('afterbegin',
-  `<h1 class="winning-message">SLAPJACK! Player 2 takes the pile!</h1>`)
+    topMessage.innerText = "SLAPJACK! Player 2 takes the pile!\n Player 1, press \'Q' to play next card.";
   }
 }
-
-// function removeWiningMesg() {
-//   topMessageParent.classList.remove("--win")
-// }
 
 function addWin() {
   //invoke checkForWin()
