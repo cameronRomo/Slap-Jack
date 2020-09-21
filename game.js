@@ -108,25 +108,46 @@ class Game {
   }
 
   attemptSlap(currentPlayer) {
+    console.log(this.pile[0]);
+    console.log(this.pile[1]);
+    console.log(this.pile[2]);
+    this.slapJack(currentPlayer)
+    this.sandwich(currentPlayer)
+    this.doubles(currentPlayer)
+  return this.pile = [];
+}
+
+  slapJack(currentPlayer) {
     for (var i = 0; i < this.winningJacks.length; i++) {
       if (this.pile[0].source === this.winningJacks[i].source) {
-        console.log("It did it");
+        console.log("SlapJack");
         this.pile.forEach(function(card) {
           currentPlayer.hand.push(card);
         })
       }
     }
-    if (this.pile[0].number === this.pile[1].number || this.pile[0].number === this.pile[2].number) {
-      this.pile.forEach(function(card) {
-        currentPlayer.hand.push(card);
-      })
-    }
-  //   if (this.pile[0].number === this.pile[2].number) {
-  //     this.pile.forEach(function(card) {
-  //       currentPlayer.hand.push(card);
-  //   })
-  // }
-  return this.pile = [];
+  }
+
+ doubles(currentPlayer) {
+  if (this.pile.length < 3 || this.pile.length < 2) {
+    console.log("NO!");
+  } else if (this.pile[0].number === this.pile[1].number) {
+    console.log("Double");
+    this.pile.forEach(function(card) {
+      currentPlayer.hand.push(card);
+    })
+  }
+}
+
+ sandwich(currentPlayer) {
+  if (this.pile.length < 3 || this.pile.length < 2) {
+    console.log("NO!");
+  } else if (this.pile[0].number === this.pile[2].number) {
+    console.log("Sandwich");
+    this.pile.forEach(function(card) {
+      currentPlayer.hand.push(card);
+    })
+  }
 }
 
   addWin(currentPlayer) {
