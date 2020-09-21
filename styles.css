@@ -9,6 +9,7 @@ main{
 }
 
 body {
+  display: flex;
   align-items: center;
   justify-content: space-around;
   margin-top: 10%;
@@ -59,13 +60,14 @@ bottom: 22%;
 right: 12%;
 }
 
-.winning-message {
+.message {
 color: white;
-display: flex;
 justify-content: center;
+margin-top: -30%;
 margin-bottom: 10%;
 opacity: 0.5;
 }
-.--win {
+
+/* .--win {
   margin-top: 0px;
-}
+} */
