@@ -23,7 +23,7 @@ function displayMessage() {
 }
 
 function updateGame() {
-  play();
+  play(event);
   if (currentGame.pile[0] !== undefined) {
     pile.innerHTML = `<img class="new-card card" src="${currentGame.pile[0].source}" alt="pile">`
   }
@@ -34,14 +34,15 @@ function clearPile() {
   pile.innerHTML = `<div class="game__card-stack card"></div>`;
 }
 
-function play() {
+function play(event) {
+  console.log(event.key);
   if (event.key === "q") {
     console.log(event.target);
     currentGame.playPlayerCard(currentGame.player1);
     currentGame.playerTurn();
     displayMessage()
   } else if (event.key === "f") {
-      slap();
+      slap(event);
       currentGame.addWin(currentGame.player1)
   }
   if (event.key === "p") {
@@ -49,13 +50,13 @@ function play() {
     currentGame.playerTurn();
     displayMessage();
   } else if (event.key === "j") {
-    slap();
+    slap(event);
     currentGame.addWin(currentGame.player2)
   }
   console.log(currentGame.pile[0]);
 }
 
-function slap() {
+function slap(event) {
   if (event.key === "f") {
     currentGame.attemptSlap(currentGame.player1);
     clearPile();
