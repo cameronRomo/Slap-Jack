@@ -24,21 +24,10 @@ function displayMessage() {
 
 function updateGame() {
   play();
-  if (pile.classList.contains("new-card") === false) {
-    console.log("HEYYYYYYY");
+  if (currentGame.pile[0] !== undefined) {
     pile.innerHTML = `<img class="new-card card" src="${currentGame.pile[0].source}" alt="pile">`
   }
-  //else {
-  //   clearPile();
-  // }
-
-  // play();
-  // if (pile.classList.contains("new-card") === false) {
-  //   pile.innerHTML = `<img class="new-card card" src="${currentGame.pile[0].src}" alt="pile">`
-  // } else {
-  //   console.log("HEYYYYYYY");
-  //   clearPile();
-  // }
+  addWin();
 }
 
 function clearPile() {
@@ -53,7 +42,7 @@ function play() {
     displayMessage()
   } else if (event.key === "f") {
       slap();
-      currentGame.playerTurn();
+      currentGame.addWin(currentGame.player1)
   }
   if (event.key === "p") {
     currentGame.playPlayerCard(currentGame.player2);
@@ -61,7 +50,7 @@ function play() {
     displayMessage();
   } else if (event.key === "j") {
     slap();
-    currentGame.playerTurn();
+    currentGame.addWin(currentGame.player2)
   }
   console.log(currentGame.pile[0]);
 }
@@ -71,15 +60,26 @@ function slap() {
     currentGame.attemptSlap(currentGame.player1);
     clearPile();
     topMessage.innerText = "SLAPJACK! Player 1 takes the pile!\n Player 2, press \'P' to play next card.";
-
+    currentGame.playerTurn();
   }
-if (event.key === "j") {
-    currentGame.attemptSlap(currentGame.player2);
-    clearPile();
-    topMessage.innerText = "SLAPJACK! Player 2 takes the pile!\n Player 1, press \'Q' to play next card.";
-  }
+  if (event.key === "j") {
+      currentGame.attemptSlap(currentGame.player2);
+      clearPile();
+      topMessage.innerText = "SLAPJACK! Player 2 takes the pile!\n Player 1, press \'Q' to play next card.";
+      currentGame.playerTurn();
+    }
 }
 
 function addWin() {
-  //invoke checkForWin()
+  var player1Score = document.querySelector(".game__player1-wins")
+  var player2Score = document.querySelector(".game__player2-wins")
+  if (currentGame.player1.hand.length === 0 && currentGame.player1.timesWNoCard === 2) {
+  currentGame.addWin(currentGame.player2);
+  player1Score.innerText = `${currentGame.player2.wins} Wins`
+} else if (currentGame.player2.hand.length === 0 && currentGame.player2.timesWNoCard === 2) {
+  currentGame.addWin(currentGame.player1);
+  player2Score.innerText = `${currentGame.player1.wins} Wins`
+} else {
+  return
+}
 }
