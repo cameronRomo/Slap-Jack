@@ -9,6 +9,7 @@ main{
 }
 
 body {
+  display: flex;
   align-items: center;
   justify-content: space-around;
   margin-top: 10%;
@@ -37,6 +38,16 @@ body {
   left: 42%;
 }
 
+.new-card {
+  position: absolute;
+  border-radius: 8px;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  /* left: 42%; */
+}
+
 .wins__player-1 {
 position: absolute;
 bottom: 22%;
@@ -48,3 +59,15 @@ position: absolute;
 bottom: 22%;
 right: 12%;
 }
+
+.message {
+color: white;
+justify-content: center;
+margin-top: -30%;
+margin-bottom: 10%;
+opacity: 0.5;
+}
+
+/* .--win {
+  margin-top: 0px;
+} */
