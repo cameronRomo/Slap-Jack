@@ -88,6 +88,36 @@ class Game {
   }
 
   playerTurn() {
+    this.checkHand();
+    // if (this.player1.hand.length === 0) {
+    //   this.player1.isTurn = false;
+    //   this.player2.isTurn = true;
+    // } else if (this.player2.hand.length === 0) {
+    //   this.player2.isTurn = false;
+    //   this.player1.isTurn = true;
+    // } else if (this.gameTurns % 2 === 0) {
+    //   this.player1.isTurn = true;
+    //   this.player2.isTurn = false;
+    // } else {
+    //   this.player2.isTurn = true;
+    //   this.player1.isTurn = false;
+    // }
+  }
+
+  checkHand() {
+    if (this.player1.hand.length === 0 && this.gameTurns > 1) {
+      console.log("Player 2 turn");
+      this.player1.isTurn = false;
+      this.player2.isTurn = true;
+    } else if (this.player2.hand.length === 0 && this.gameTurns > 1) {
+      this.player2.isTurn = false;
+      this.player1.isTurn = true;
+    } else {
+      this.checkGameTurns()
+    }
+  }
+
+  checkGameTurns() {
     if (this.gameTurns % 2 === 0) {
       this.player1.isTurn = true;
       this.player2.isTurn = false;
@@ -108,13 +138,10 @@ class Game {
   }
 
   attemptSlap(currentPlayer) {
-    console.log(this.pile[0]);
-    console.log(this.pile[1]);
-    console.log(this.pile[2]);
     this.slapJack(currentPlayer)
     this.sandwich(currentPlayer)
     this.doubles(currentPlayer)
-  return this.pile = [];
+    return this.pile = [];
 }
 
   slapJack(currentPlayer) {
@@ -129,7 +156,7 @@ class Game {
   }
 
  doubles(currentPlayer) {
-  if (this.pile.length < 3 || this.pile.length < 2) {
+  if (this.pile.length < 2) {
     console.log("NO!");
   } else if (this.pile[0].number === this.pile[1].number) {
     console.log("Double");
@@ -140,7 +167,7 @@ class Game {
 }
 
  sandwich(currentPlayer) {
-  if (this.pile.length < 3 || this.pile.length < 2) {
+  if (this.pile.length < 3) {
     console.log("NO!");
   } else if (this.pile[0].number === this.pile[2].number) {
     console.log("Sandwich");
