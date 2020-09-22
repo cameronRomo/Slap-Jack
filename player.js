@@ -1,7 +1,7 @@
 class Player {
   constructor(id) {
     this.id = `player-${id}`;
-    this.wins = 0;
+    this.wins = JSON.parse(localStorage.getItem(this.id)) || 0;
     this.hand = [];
     this.isTurn = false;
     this.timesWNoCard = 0;
@@ -27,7 +27,9 @@ class Player {
       this.playerMessage = "SANDWICH!"
     }
   }
-  saveWinsToStorage() {
 
+  addToStorage() {
+    var stringyPlayerWins = JSON.stringify(this.wins);
+    localStorage.setItem(this.id, stringyPlayerWins);
   }
 }
