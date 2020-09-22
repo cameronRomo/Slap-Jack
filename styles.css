@@ -50,14 +50,16 @@ body {
 
 .wins__player-1 {
 position: absolute;
-bottom: 22%;
+bottom: 18%;
 left: 12%;
+font-size: 30px;
 }
 
 .wins__player-2 {
 position: absolute;
-bottom: 22%;
+bottom: 18%;
 right: 12%;
+font-size: 30px;
 }
 
 .message {
@@ -67,7 +69,3 @@ margin-top: -30%;
 margin-bottom: 10%;
 opacity: 0.5;
 }
-
-/* .--win {
-  margin-top: 0px;
-} */
