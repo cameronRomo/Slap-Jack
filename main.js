@@ -65,7 +65,6 @@ function slap(event) {
       currentGame.attemptSlap(currentGame.player2);
       clearPile();
       trackNoCards(currentGame.player1);
-      console.log(currentGame.player2.playerMessage);
       topMessage.innerText = `${currentGame.player2.playerMessage} Player 2 takes the pile!\n Player 1, press \'Q' to play next card.`;
       currentGame.playerTurn();
       return
@@ -76,16 +75,26 @@ function updateWin() {
   var player1Score = document.querySelector(".game__player1-wins")
   var player2Score = document.querySelector(".game__player2-wins")
   if (currentGame.player1.hand.length === 0 && currentGame.player1.timesWNoCard === 2) {
-  console.log("Should pluss 1");
   currentGame.addWin(currentGame.player2);
   player2Score.innerText = `${currentGame.player2.wins} Wins`
+  nextRound()
 } else if (currentGame.player2.hand.length === 0 && currentGame.player2.timesWNoCard === 2) {
   currentGame.addWin(currentGame.player1);
   player1Score.innerText = `${currentGame.player1.wins} Wins`
+  nextRound()
 } else {
   return
 }
 }
+
+function nextRound() {
+  currentGame.player1.hand = [];
+  currentGame.player2.hand = [];
+  currentGame.shuffleCards(currentGame.cards);
+  currentGame.playerTurn();
+  displayMessage();
+}
+
 function trackNoCards(player) {
   if (player.hand.length === 0) {
     player.timesWNoCard += 1;
