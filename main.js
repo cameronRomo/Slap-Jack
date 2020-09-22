@@ -1,13 +1,15 @@
 var pile = document.querySelector(".game__card-stack");
 var currentGame;
-var topMessage = document.querySelector(".message")
+var topMessage = document.querySelector(".message");
+var player1Score = document.querySelector(".game__player1-wins");
+var player2Score = document.querySelector(".game__player2-wins");
 
 window.onload = startGame();
 window.addEventListener("keydown", updateGame);
 
 function startGame() {
   currentGame = new Game();
-  //invoke an updateWins();
+  displayStoredWins();
   currentGame.shuffleCards(currentGame.cards);
   currentGame.playerTurn();
   displayMessage();
@@ -72,14 +74,14 @@ function slap(event) {
 }
 
 function updateWin() {
-  var player1Score = document.querySelector(".game__player1-wins")
-  var player2Score = document.querySelector(".game__player2-wins")
   if (currentGame.player1.hand.length === 0 && currentGame.player1.timesWNoCard === 2) {
   currentGame.addWin(currentGame.player2);
+  displayStoredWins(player2Score);
   player2Score.innerText = `${currentGame.player2.wins} Wins`
   nextRound()
 } else if (currentGame.player2.hand.length === 0 && currentGame.player2.timesWNoCard === 2) {
   currentGame.addWin(currentGame.player1);
+  displayStoredWins(player1Score);
   player1Score.innerText = `${currentGame.player1.wins} Wins`
   nextRound()
 } else {
@@ -93,10 +95,23 @@ function nextRound() {
   currentGame.shuffleCards(currentGame.cards);
   currentGame.playerTurn();
   displayMessage();
+  displayStoredWins();
 }
 
 function trackNoCards(player) {
   if (player.hand.length === 0) {
     player.timesWNoCard += 1;
+  }
+}
+
+function displayStoredWins() {
+  var player1Wins = localStorage.getItem(currentGame.player1.id);
+  var player2Wins = localStorage.getItem(currentGame.player2.id);
+  player1Wins = JSON.parse(player1Wins);
+  player2Wins = JSON.parse(player2Wins);
+  if (player1Wins !== null) {
+    player1Score.innerText = `${player1Wins} Wins`;
+  } else if (player2Wins !== null) {
+    player2Score.innerText = `${player2Wins} Wins`;
   }
 }
