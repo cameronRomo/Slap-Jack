@@ -169,6 +169,7 @@ class Game {
 
   addWin(currentPlayer) {
     currentPlayer.wins += 1;
+    currentPlayer.addToStorage();
   }
 
   resetGame() {
