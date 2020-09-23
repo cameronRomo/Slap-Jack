@@ -63,7 +63,7 @@ class Game {
       {suit: "gold", number: 11, source: './assets/gold-jack.png'},
       {suit: "green", number: 11, source: './assets/green-jack.png'},
       {suit: "red", number: 11, source: './assets/red-jack.png'},
-    ]
+    ];
     this.intervalID;
   }
 
@@ -93,14 +93,13 @@ class Game {
 
   checkHand() {
     if (this.player1.hand.length === 0 && this.gameTurns > 1) {
-      console.log("Player 2 turn");
       this.player1.isTurn = false;
       this.player2.isTurn = true;
     } else if (this.player2.hand.length === 0 && this.gameTurns > 1) {
       this.player2.isTurn = false;
       this.player1.isTurn = true;
     } else {
-      this.checkGameTurns()
+      this.checkGameTurns();
     }
   }
 
@@ -116,18 +115,18 @@ class Game {
 
   playPlayerCard(currentPlayer) {
     if (currentPlayer.hand.length > 0 && currentPlayer.isTurn === true) {
-      var cardInPlay = currentPlayer.hand[0]
+      var cardInPlay = currentPlayer.hand[0];
       currentPlayer.hand.splice(0, 1);
       this.pile.splice(0, 0, cardInPlay);
       this.gameTurns += 1;
     }
-    return
+    return;
   }
 
   attemptSlap(currentPlayer) {
-    this.slapJack(currentPlayer)
-    this.double(currentPlayer)
-    this.sandwich(currentPlayer)
+    this.slapJack(currentPlayer);
+    this.double(currentPlayer);
+    this.sandwich(currentPlayer);
     return this.pile = [];
 }
 
@@ -174,10 +173,5 @@ class Game {
 
   resetGame() {
     location.reload();
-    // this.pile = [];
-    // this.player1.hand = [];
-    // this.player2.hand = [];
-    // this.player1.wins = 0;
-    // this.player2.wins = 0;
   }
 }
