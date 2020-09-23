@@ -25,12 +25,14 @@ This SlapJack game has been created to demonstrate the required understanding of
     * A Double or Pair (Two cards with the same number)
     * A Sandwich (two cards of the same number separated by a different card in the middle)
 
+![playing-cards](https://user-images.githubusercontent.com/63012953/93958740-65f5c400-fd14-11ea-81df-20e05a2c0213.gif)
 
 * If one player loses all their cards, they have one chance to not lose and continue the game
     * If the player with all the cards slaps first, they win the game.
 
 
-###### To enjoy, observe, or critique this project please follow the following steps:
+##### To enjoy, observe, or critique this project please follow the following steps:
+
 > * Clone down this repository to your local machine `git clone <URL>`
 > * cd into repository `slap-jack`
 > * run `open index.html`
