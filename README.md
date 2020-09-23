@@ -24,12 +24,11 @@ This SlapJack game has been created to demonstrate the required understanding of
     * A Jack is on the top of the center pile
     * A Double or Pair (Two cards with the same number)
     * A Sandwich (two cards of the same number separated by a different card in the middle)
-
 ![playing-cards](https://user-images.githubusercontent.com/63012953/93958740-65f5c400-fd14-11ea-81df-20e05a2c0213.gif)
 
 * If one player loses all their cards, they have one chance to not lose and continue the game
     * If the player with all the cards slaps first, they win the game.
-
+![slap-jack-dealing-and-slapping](https://user-images.githubusercontent.com/63012953/93959098-2ed3e280-fd15-11ea-9c23-8c253d3ad690.gif)
 
 ##### To enjoy, observe, or critique this project please follow the following steps:
 
