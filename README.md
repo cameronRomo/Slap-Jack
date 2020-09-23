@@ -32,7 +32,7 @@ This SlapJack game has been created to demonstrate the required understanding of
     
 ![slap-jack-dealing-and-slapping](https://user-images.githubusercontent.com/63012953/93959098-2ed3e280-fd15-11ea-9c23-8c253d3ad690.gif)
 
-##### To enjoy, observe, or critique this project please follow the following steps:
+#### To enjoy, observe, or critique this project please follow the following steps:
 
 > * Clone down this repository to your local machine `git clone <URL>`
 > * cd into repository `slap-jack`
