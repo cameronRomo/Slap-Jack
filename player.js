@@ -10,21 +10,22 @@ class Player {
     this.slappedSandwich = false;
     this.playerMessage;
   }
+
   playerSlapedJack() {
     if (this.slappedJack === true) {
-      this.playerMessage = "SLAPJACK!"
+      this.playerMessage = "SLAPJACK!";
     }
   }
 
   playerSlapedDouble() {
     if (this.slappedDouble === true) {
-      this.playerMessage = "DOUBLE!"
+      this.playerMessage = "DOUBLE!";
     }
   }
 
   playerSlapedSandwich() {
     if (this.slappedSandwich === true) {
-      this.playerMessage = "SANDWICH!"
+      this.playerMessage = "SANDWICH!";
     }
   }
 
