@@ -1,8 +1,8 @@
 var pile = document.querySelector(".game__card-stack");
-var currentGame;
 var topMessage = document.querySelector(".message");
 var player1Score = document.querySelector(".game__player1-wins");
 var player2Score = document.querySelector(".game__player2-wins");
+var currentGame;
 
 window.onload = startGame();
 window.addEventListener("keydown", updateGame);
@@ -14,8 +14,8 @@ function startGame() {
   currentGame.playerTurn();
   displayMessage();
 }
-//(currentGame.player2.isTurn === true)
-function displayMessage() { //refactor
+
+function displayMessage() {
   if (currentGame.player1.isTurn === true) {
      topMessage.innerText = "It's player 1's turn. Press \'Q' to play card.";
   } else {
@@ -35,10 +35,7 @@ function clearPile() {
 }
 
 function play(event) {
-  //var currentPlayer ... who is current player?
-  console.log(event.key);
   if (event.key === "q") {
-    // console.log(event.target);
     currentGame.playPlayerCard(currentGame.player1);
     currentGame.playerTurn();
     displayMessage()
@@ -90,12 +87,8 @@ function updateWin() {
 }
 
 function nextRound() {
-  currentGame.player1.hand = [];
-  currentGame.player2.hand = [];
-  currentGame.shuffleCards(currentGame.cards);
-  currentGame.playerTurn();
-  displayMessage();
-  displayStoredWins();
+  currentGame.resetGame();
+  startGame();
 }
 
 function trackNoCards(player) {
